@@ -42,11 +42,13 @@ for f in folder:
 #print dating_word,len(dating_word)
 fd = nltk.FreqDist(dating_word)
 fdp = nltk.FreqDist(phish_word)
-print phish_word[5]
+#print phish_word[5:50]
 feature_set_train = [({i:j},'dat') for i,j in fd.most_common(100)]
 feature_set_train.extend([({i:j},'phish') for i,j in fdp.most_common(100)])
+print feature_set_train[100:-1]
 clf = nltk.NaiveBayesClassifier.train(feature_set_train)
-print clf.classify({'login':'NN'})
+print clf.classify({('m','NN'):2})
+print nltk.classify.accuracy(clf,{('messag','NN'):1})
 #i=[i for i,j in dating_word]
 #print i
 ##print len(words)
